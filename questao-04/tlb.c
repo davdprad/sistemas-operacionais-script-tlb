@@ -4,6 +4,10 @@
 #include <sched.h>
 #include <unistd.h>
 
+/*
+    PARA COMPILAR ESTE CÓDIGO, UTILIZAR -> gcc -D_GNU_SOURCE -o programa tlb.c
+*/ 
+
 #define PAGESIZE 4096
 
 long time_diff(struct timeval *start, struct timeval *end) {

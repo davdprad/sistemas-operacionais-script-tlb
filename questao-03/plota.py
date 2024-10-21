@@ -8,6 +8,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# TROCAR O NOME DO ARQUIVO .txt AQUI
+# GARANTIR QUE O ARQUIVO .txt ESTEJA NO MESMO DIRETÓRIO
 data = np.loadtxt('tlb_resultados.txt', skiprows=1)
 
 numero_paginas = data[:, 0]
