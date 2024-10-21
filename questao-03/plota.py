@@ -1,7 +1,7 @@
 # import sys
 # import matplotlib.pyplot as plt
 
-# plotprofile se mostrou antigo, então foi substituido no código
+# plotfile se mostrou antigo, então foi substituido no código
 # plt.plotfile(sys.argv[1], cols=(0, 1), names=["Numero de Paginas", "Tempo"], delimiter=" ")
 # plt.show()
 
@@ -21,7 +21,6 @@ plt.xlabel("Número de Páginas")
 plt.ylabel("Tempo Médio por Acesso (microssegundos)")
 
 plt.legend()
-
 
 plt.grid(True)
 plt.show()

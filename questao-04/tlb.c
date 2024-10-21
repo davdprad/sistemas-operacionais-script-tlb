@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <sched.h>
+#include <unistd.h>
 
 #define PAGESIZE 4096
 
@@ -10,7 +12,12 @@ long time_diff(struct timeval *start, struct timeval *end) {
 
 int main(){
 
-    char* filename = "tlb_resultados_q2.txt";
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(0, &mask);
+    sched_setaffinity(0, sizeof(cpu_set_t), &mask);
+
+    char* filename = "tlb_resultados_q4.txt";
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
         printf("Erro ao abrir o arquivo de saída.\n");
@@ -20,15 +27,12 @@ int main(){
     fprintf(file, "%-25s%-30s\n", "Número de Páginas", "Tempo Médio por Acesso (microssegundos)");
 
     int pages, qtd = 10000, size_vet, jump;
-    // scanf("%d %d", &pages, &qtd);
 
     for(pages = 1; pages < 2000; pages++){
         printf("%d pages\n", pages);
 
         jump = PAGESIZE / sizeof(int);
-
-        size_vet = (pages*PAGESIZE) / sizeof(int);
-
+        size_vet = (pages * PAGESIZE) / sizeof(int);
         int *vet = (int *)malloc(size_vet * sizeof(int));
 
         if (vet == NULL) {
@@ -51,10 +55,8 @@ int main(){
 
         gettimeofday(&fim, NULL);
         long tempo = time_diff(&inicio, &fim);
-        float tempo_em_segundos = tempo / 1000000.0;
         float tempo_medio = tempo / qtd;
-        // printf("Tempo medio decorrido: %f segundos.\n", tempo_medio);
-        
+
         fprintf(file, "%-23d%-30f\n", pages, tempo_medio);
 
         free(vet);
